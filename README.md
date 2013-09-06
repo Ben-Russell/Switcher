@@ -1,0 +1,4 @@
+Switcher
+========
+
+Javascript switch library.
