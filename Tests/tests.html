@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Switcher Tests</title>
+	<script type="text/javascript" src="../Release/Switcher.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" />
+
+</head>
+
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+
+		<script type="text/javascript">
+			(function Tests() {
+				var testconstants = {
+					"string": "abbc",
+					"bool": true,
+					"number": 5,
+					"function": function() {
+						return "I am a function";
+					}
+				};
+
+				// Tests
+				test("Switch on String", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case(testconstants.string, function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Switch on Bool", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.bool)
+						.Case(testconstants.bool, function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Switch on Number", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.number)
+						.Case(testconstants.number, function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Multiple Cases", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case(testconstants.number, function() {
+							pass = "fail";
+						})
+						.Case(testconstants.string, function() {
+							pass = "pass";
+						})
+						.Case(testconstants.bool, function() {
+							pass = "fail";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Default Case", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case(testconstants.number, function() {
+							pass = "fail";
+						})
+						.Case(testconstants.bool, function() {
+							pass = "fail";
+						})
+						.Default(function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Regex", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case(/bb/, function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Assignment", function() {
+					var pass = Switcher(testconstants.string)
+					              .Case(testconstants.string, "pass").Result;
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Assign Functions", function() {
+					var result = Switcher(testconstants.string, false)
+					              .Case(testconstants.string, testconstants.function).Result;
+					ok(result === testconstants.function, "Pass");
+				});
+
+
+				
+			})();
+		</script>
+</body>
+
+</html>

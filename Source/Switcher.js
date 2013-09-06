@@ -1,3 +1,8 @@
+/*
+ *	Switcher JS Library
+ *		Ben Russell
+ *		https://github.com/Ben-Russell/Switcher
+ */
 (function() {
 
 	function _s(expr, evaluatefunctions) {
