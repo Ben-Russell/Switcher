@@ -91,11 +91,49 @@
 					ok(pass === "pass", "Pass");
 				});
 
+				test("Default Nonuse", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case(testconstants.string, function() {
+							pass = "pass";
+						})
+						.Case(testconstants.number, function() {
+							pass = "fail";
+						})
+						.Default(function() {
+							pass = "fail";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
 				test("Regex", function() {
 					var pass = undefined;
 
 					Switcher(testconstants.string)
 						.Case(/bb/, function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+				test("Multiple Tests in Cases", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case([testconstants.number, testconstants.string, testconstants.bool], function() {
+							pass = "pass";
+						});
+
+					Switcher(testconstants.number)
+						.Case([testconstants.number, testconstants.string, testconstants.bool], function() {
+							pass = "pass";
+						});
+
+					Switcher(testconstants.bool)
+						.Case([testconstants.number, testconstants.string, testconstants.bool], function() {
 							pass = "pass";
 						});
 					

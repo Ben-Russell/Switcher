@@ -18,6 +18,7 @@
 			this.EvaluateFunctions = evaluatefunctions;
 
 			this.Result = undefined;
+			this.Passed = false;
 		}
 
 		Switcher.prototype.Case = function Case(expr, stmt) {
@@ -31,6 +32,7 @@
 					break;
 				case "[object RegExp]":
 					if(expr.test(this.Expression)) {
+						this.Passed = true;
 						if(typeof stmt === 'function') {
 							this.Result = stmt();
 						}
@@ -41,6 +43,7 @@
 					break;
 				default:
 					if(this.Expression == expr) {
+						this.Passed = true;
 						if(typeof stmt === 'function' && this.EvaluateFunctions) {
 							this.Result = stmt();
 						}
@@ -54,7 +57,9 @@
 		}
 
 		Switcher.prototype.Default = function(stmt) {
-			return this.Case(this.Expression, stmt);
+			if(!this.Passed) {
+				return this.Case(this.Expression, stmt);
+			}
 		}
 
 	window.Switcher = _s;
