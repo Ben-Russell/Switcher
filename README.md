@@ -67,4 +67,4 @@ Pass a variable or value to skip needing a function. Can be helpful to achieve s
 Some Technical Disclaimers
 --------------------------
 
-Case evaluation is **NOT** short-circuit. All cases will execute, if multiple cases match your switch, you will only get the results of the last case.
+Case evaluation is **NOT** short-circuit. All cases will execute. This means for Assignments, if multiple cases match your switch, you will only get the results of the last case matched.
