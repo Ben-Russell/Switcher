@@ -63,6 +63,14 @@ Pass a variable or value to skip needing a function. Can be helpful to achieve s
         .Case("cow", "moo")
         .Case("cat", "meow").Results;
         
+To assign instead of evaluate a function, pass false as the second parameter of Switcher.
+
+    var myResult = Switcher(myVar, false)
+        .Case("case1", function() {
+            return "Function for later"
+        });
+    myResult(); // "Function for later"
+        
         
 Some Technical Disclaimers
 --------------------------
