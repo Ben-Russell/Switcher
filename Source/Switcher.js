@@ -53,9 +53,11 @@
 		}
 
 		Switcher.prototype.Default = function(stmt) {
+			var result = this;
 			if(!this.Passed) {
-				return this.Case(this.Expression, stmt);
+				result = this.Case(this.Expression, stmt);
 			}
+			return result;
 		}
 
 

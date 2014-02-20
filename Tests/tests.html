@@ -158,6 +158,15 @@
 					ok(pass === "pass", "Pass");
 				});
 
+				test("Assignment with Default", function() {
+					var pass = Switcher(testconstants.string)
+					              .Case(testconstants.string, "pass")
+					              .Default(function() {
+					              	pass = "fail";
+					              }).Result;
+					ok(pass === "pass", "Pass");
+				});
+
 				test("Assign Functions", function() {
 					var control = true;
 					var result = Switcher(testconstants.string, false)
