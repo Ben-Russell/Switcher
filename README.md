@@ -1,4 +1,4 @@
-Switcher
+Switcher 1.2
 ========
 
 Javascript switch library.
@@ -34,6 +34,22 @@ Use regex right in the case test (This can allow multiple cases to execute).
         })
         .Case(/pear/, function() {
             // Will Not Run
+        });
+
+Expressions as Test Case
+-------------------
+
+Pass an expression to a case to match a true expression
+
+    Switcher(myVar)
+        .Case(myVar > 5, function() {
+            // Will run if myVar is greater than 5
+        })
+        .Case(myVar < 5, function() {
+            // Will run if myVar is less than 5
+        })
+        .Case(5, function() {
+            // Will run if myVar equals 5
         });
         
 Multiple Tests in Case
@@ -76,3 +92,17 @@ Some Technical Disclaimers
 --------------------------
 
 Case evaluation is **NOT** short-circuit. All cases will execute. This means for Assignments, if multiple cases match your switch, you will only get the results of the last case matched.
+
+If the switch expression evalues to a boolean, a case expression must match the switch expression. In the example:
+
+    var myVar = false;
+    Switcher(myVar)
+        .Case(true, function() {
+            // Will not run
+        })
+        .Case(false, function() {
+            // Will run
+        })
+        .Case(myVar == false, function() {
+            // Will not run
+        });
