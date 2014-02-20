@@ -65,19 +65,19 @@ Pass an array to a case test to match multiple values
 Assign Directly to a Variable
 -----------------------------
 
-Return the results of the function right to a variable by adding `.Results` to the end of your Switch.
+Return the result of the function right to a variable by adding `.Result` to the end of your Switch.
 
     var myResult = Switcher(myVar)
         .Case("case1", function() {
             return a * b;
-        }).Results;
+        }).Result;
 
 Pass a variable or value to skip needing a function. Can be helpful to achieve similar functionality to nested ternarys.
 
     var sound = Switcher(animal)
         .Case("dog", "bark")
         .Case("cow", "moo")
-        .Case("cat", "meow").Results;
+        .Case("cat", "meow").Result;
         
 To assign instead of evaluate a function, pass false as the second parameter of Switcher.
 
@@ -91,7 +91,7 @@ To assign instead of evaluate a function, pass false as the second parameter of 
 Some Technical Disclaimers
 --------------------------
 
-Case evaluation is **NOT** short-circuit. All cases will execute. This means for Assignments, if multiple cases match your switch, you will only get the results of the last case matched.
+Case evaluation is **NOT** short-circuit. All cases will execute. This means for Assignments, if multiple cases match your switch, you will only get the result of the last case matched.
 
 If the switch expression evalues to a boolean, a case expression must match the switch expression. In the example:
 
