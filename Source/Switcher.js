@@ -2,6 +2,7 @@
  *	Switcher JS Library
  *		Ben Russell
  *		https://github.com/Ben-Russell/Switcher
+ *		Version 1.2
  */
 (function() {
 
@@ -32,24 +33,19 @@
 					break;
 				case "[object RegExp]":
 					if(expr.test(this.Expression)) {
-						this.Passed = true;
-						if(typeof stmt === 'function') {
-							this.Result = stmt();
-						}
-						else {
-							this.Result = stmt;
-						}
+						Pass(this, stmt);
 					}
 					break;
+				case "[object Boolean]":
+					if(Object.prototype.toString.call(this.Expression) != "[object Boolean]") {
+						if(expr) {
+							Pass(this, stmt);
+						}
+						break;
+					}
 				default:
 					if(this.Expression == expr) {
-						this.Passed = true;
-						if(typeof stmt === 'function' && this.EvaluateFunctions) {
-							this.Result = stmt();
-						}
-						else {
-							this.Result = stmt;
-						}
+						Pass(this, stmt);
 					}
 					break;
 			}
@@ -60,6 +56,19 @@
 			if(!this.Passed) {
 				return this.Case(this.Expression, stmt);
 			}
+		}
+
+
+		function Pass(switcher, stmt) {
+			switcher.Passed = true;
+
+			if(typeof stmt === 'function' && switcher.EvaluateFunctions) {
+				switcher.Result = stmt();
+			}
+			else {
+				switcher.Result = stmt;
+			}
+
 		}
 
 	window.Switcher = _s;

@@ -16,7 +16,7 @@
 			(function Tests() {
 				var testconstants = {
 					"string": "abbc",
-					"bool": true,
+					"bool": false,
 					"number": 5,
 					"function": function() {
 						return "I am a function";
@@ -29,6 +29,18 @@
 
 					Switcher(testconstants.string)
 						.Case(testconstants.string, function() {
+							pass = "pass";
+						});
+					
+					ok(pass === "pass", "Pass");
+				});
+
+
+				test("Switch on String with expression case", function() {
+					var pass = undefined;
+
+					Switcher(testconstants.string)
+						.Case(testconstants.string == testconstants.string, function() {
 							pass = "pass";
 						});
 					
@@ -147,9 +159,12 @@
 				});
 
 				test("Assign Functions", function() {
+					var control = true;
 					var result = Switcher(testconstants.string, false)
-					              .Case(testconstants.string, testconstants.function).Result;
-					ok(result === testconstants.function, "Pass");
+					              .Case(testconstants.string, function() {
+					              	control = false;
+					              }).Result;
+					ok(typeof result === 'function', "Pass");
 				});
 
 
